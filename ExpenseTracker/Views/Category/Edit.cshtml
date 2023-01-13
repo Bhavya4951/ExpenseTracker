@@ -1,0 +1,60 @@
+﻿@model Category
+@{
+    ViewData["Title"] = "Update Cetegory";
+}
+@if (TempData["AlertMsg"] != null)
+{
+
+    <script type="text/javascript">
+        alert("@TempData["AlertMsg"]");
+    </script>
+
+
+}
+
+<div class="container shadow p-5">
+    <div class="row pb-2">
+        <h2>Update  Category </h2>
+    </div>
+
+    <form method="post" asp-action="Edit">
+     <div asp-validation-summary="All"></div>
+
+        <div class="form-row ">
+            <div class="form-group col-md-6">
+               
+                <input type="hidden" class="form-control mb-3 mt-2">
+                
+            </div>
+
+            <div class="form-group col-md-6">
+                <label asp-for="C_Name" class="label-category"></label>
+                <input  class="form-control mb-3 mt-2" asp-for="C_Name">
+                <span asp-validation-for="C_Name" class="form-validation"></span>
+                <span class="form-validation">@Html.ValidationMessage("Category_Name")</span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for=" C_Expense_Limit" class="label-category"></label>
+                <input class="form-control mb-3 mt-2" asp-for=" C_Expense_Limit" >
+                <span asp-validation-for=" C_Expense_Limit" class="form-validation"></span>
+             
+            </div>
+         
+        </div>
+
+        <button type="submit" class="btn btn-sm btn-primary p-2 label-category ">Update</button>
+        <a asp-action="Index" asp-controller="Home" class="btn btn-sm btn-success float-left p-2 label-category">  Back </a>
+    </form>
+
+</div>
+
+
+@*//for front end validations*@
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
+
+

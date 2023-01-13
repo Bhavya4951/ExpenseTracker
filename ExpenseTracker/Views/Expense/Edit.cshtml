@@ -1,0 +1,79 @@
+﻿@model Expense
+@{
+    ViewData["Title"] = "Update expense";
+}
+@if (TempData["AlertMsg"] != null)
+{
+
+    <script type="text/javascript">
+        alert("@TempData["AlertMsg"]");
+    </script>
+
+
+}
+
+<div class="container shadow p-5">
+    <div class="row pb-2">
+        <h2>Update Expense </h2>
+    </div>
+
+    <form method="post" autocomplete="off" asp-action="Edit">
+        <div asp-validation-summary="All"></div>
+
+        <div class="form-row ">
+            <div class="row">
+                <div class="col-6 ">
+                    <div class="form-group">
+                        <label asp-for="E_Title" class="label-category"></label>
+                        <input class="form-control mb-3 mt-2" asp-for="E_Title" placeholder="Expence Title">
+                        <span asp-validation-for="E_Title" class="form-validation"></span>
+
+                    </div>
+                </div>
+                <div class="col-6 ">
+                    <div class="form-group">
+                        <label asp-for="E_Description" class="label-category"></label>
+                        <input class="form-control mb-3 mt-2" asp-for="E_Description" placeholder="Expence Title">
+                        <span asp-validation-for="E_Description" class="form-validation"></span>
+
+                    </div>
+                </div>
+
+                <!-- Force next columns to break to new line -->
+                <div class="w-100"></div>
+
+                <div class="col-6 ">
+                    <div class="form-group">
+                        <label asp-for="E_Amount" class="label-category"></label>
+                        <input class="form-control mb-3 mt-2" asp-for="E_Amount" placeholder="Expence Title">
+                        <span asp-validation-for="E_Amount" class="form-validation"></span>
+
+                    </div>
+                </div>
+                <div class="col-6 ">
+                    <div class="form-group">
+                        <label asp-for="C_id" class="label-category"></label>
+                        <select asp-for="C_id" class="form-control  mb-3 mt-2 form-select" asp-items="@ViewBag.Category_List">
+                           
+                        </select>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-sm btn-primary p-2 label-category ">Submit</button>
+        <a asp-action="Index" asp-controller="Home" class="btn btn-sm btn-success float-left p-2 label-category">  Back </a>
+    </form>
+
+</div>
+
+
+@*//for front end validations*@
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
+

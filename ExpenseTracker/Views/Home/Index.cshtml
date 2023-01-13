@@ -1,0 +1,149 @@
+﻿@model GrpModels;
+
+@{
+    ViewData["Title"] = "Dashboar Page";
+}
+
+@if (TempData["ResultOk"] != null)
+{
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>@TempData["ResultOk"]</strong>
+       
+    </div>
+
+}
+
+<style>
+    table {
+     
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #000000;
+        text-align: center;
+        padding: 3px;
+    }
+
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+
+    .pb-3{
+
+        margin-bottom:0px;
+    }
+</style>
+<div>
+    <h1 class="heading">Welcome To Dashboard</h1>
+</div>
+
+<div class="home-content">
+    <div class="overview-boxes">
+        <div class="box">
+            <div class="right-side">
+                <div class="box-topic">Total Expense Limit </div>
+                <div class="number">@Model.totalexplims.Sum(i=>i.Total_ExpenseLimit)</div>
+                @foreach (var item in Model.totalexplims)
+                {
+                    <a asp-controller="TotalExpenseLimit" asp-action="Edit" asp-route-id="@item.Total_ExpenseLimit_Id" class=" btn btn-sm  btn-primary dashboard-btn">Edit</a>
+                }
+                <a asp-controller="TotalExpenseLimit" asp-action="Create" class=" btn btn-sm btn-success dashboard-btn">Add</a>
+            </div>
+        </div>
+
+        <div class="box">
+           
+            <div class="right-side">
+                <div class="box-topic">Your Total Expense </div>
+                <div class="number"> @Model.exps.Sum(i=>i.E_Amount)</div>
+                <a asp-controller="Expense" asp-action="Create" class=" btn btn-sm btn-success dashboard-btn">Add New Expense</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="table-content">
+    <div class="table-boxes">
+        <div class="table-box">
+            <div class="tableCaption">
+                <div class="table-Title">
+                    Category Table
+                </div>
+                <div class="float-end">
+                    <a asp-controller="Category" asp-action="Create" class="btn btn-success text-white ">Create Category</a>
+                </div>
+            </div>
+            <table >
+                <tr>
+                    <th>Category Name</th>
+                    <th>Category Limit</th>
+                    <th>Action</th>
+                </tr>
+                @foreach(var item in Model.cats)
+                {
+                <tr>
+                       
+                       <td>@Html.DisplayFor(modelItem => item.C_Name)</td>
+                     
+                        <td>@Html.DisplayFor(modelItem => item.C_Expense_Limit)</td>
+                    <td>
+                        <div role="group" class="w-60 btn-group">
+                                <a asp-controller="Category" asp-action="Edit" asp-route-id="@item.C_Id" class=" btn btn-sm btn-primary">Edit</a>&nbsp;
+
+                                <a asp-controller="Category" asp-action="Delete" asp-route-id="@item.C_Id" class="btn btn-sm btn-danger">Delete</a>&nbsp;
+
+                                <a href="@Url.Action("Index","Home", new{id = item.C_Id})" class="btn btn-sm btn-info">Expense</a>
+                        </div>
+                    </td>  
+                </tr>
+               }
+            </table>
+         </div>
+
+        <div class="table-box table-right">
+            <div class="tableCaption">
+                <div class="table-Title">
+                    Expense Table
+                </div>
+                <div class="float-end">
+                   @* <a asp-controller="Category" asp-action="Create" class="btn btn-success text-white ">Add Expense</a>*@
+                </div>
+            </div>
+            <table id="myTable">
+                  <tr>
+                    <th>Expense Title</th>
+                    <th> Descriptiont</th>
+                    <th> Amount</th>
+                    <th> Date</th>
+                    <th>Category Name</th>
+                    <th>Action</th>
+
+                  </tr>
+              
+                @foreach (var item in Model.exps)
+                   {
+                      <tr>
+                        <td> @Html.DisplayFor(modelItem => item.E_Title)</td>
+                        <td>@Html.DisplayFor(modelItem => item.E_Description)</td>
+                        <td>@Html.DisplayFor(modelItem => item.E_Amount)</td>
+                        <td>@Html.DisplayFor(modelItem => item.E_Date)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Category.C_Name)</td>
+                        <td>
+                            <div role="group" class="w-60 btn-group">
+                                <a asp-controller="Expense" asp-action="Edit" asp-route-id="@item.E_Id" class=" btn btn-sm btn-primary">Edit</a>&nbsp;
+                                <a asp-controller="Expense" asp-action="Delete" asp-route-id="@item.E_Id" class="btn btn-sm btn-danger">Delete</a>
+                            </div>
+                        </td>
+                        </tr>
+
+                    }
+               
+            </table>
+         </div>
+    </div>
+</div>

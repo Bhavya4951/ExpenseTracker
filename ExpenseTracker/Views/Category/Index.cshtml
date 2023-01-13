@@ -1,0 +1,67 @@
+﻿@model IEnumerable<Category>
+@{
+    ViewData["Title"] = "Index";
+
+}
+
+@if (TempData["ResultOk"] != null)
+{
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>@TempData["ResultOk"]</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+}
+
+<div class="container shadow p-5">
+
+    <h1 class="text-center mb-3">Category Details </h1>
+
+    <div class="col mb-3">
+        <div>
+            <a asp-controller="Category" asp-action="Create" class="btn btn-success text-white ">Create Category</a>
+        
+
+       
+            <h5 class="float-end">Total Category Expense :  @Model.Sum(sum=>sum.C_Expense_Limit) </h5>
+        </div>
+    </div>
+    <table class="table table-bordered table-hover text-center">
+        <thead>
+            <tr>
+                <th scope="col">@Html.DisplayNameFor(Model => Model.C_Id)</th>
+                <th scope="col">@Html.DisplayNameFor(Model => Model.C_Name)</th>
+                <th scope="col">@Html.DisplayNameFor(Model => Model.C_Expense_Limit)</th>
+               
+                <th> Action </th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td width="20%">
+                        @Html.DisplayFor(modelItem => item.C_Id)
+                    </td>
+                    <td width="20%">
+                        @Html.DisplayFor(modelItem => item.C_Name)
+                    </td>
+                    <td width="25%">
+                        @Html.DisplayFor(modelItem => item.C_Expense_Limit)
+                    </td>
+                   
+                    <td>
+                        <div role="group" class="w-60 btn-group">
+                            <a asp-controller="Category" asp-action="Edit" asp-route-id="@item.C_Id" class=" btn btn-sm btn-primary"><i class="bi bi-pencil-square"></i>Edit</a>&nbsp;
+                            <a asp-controller="Category" asp-action="Delete" asp-route-id="@item.C_Id" class="btn btn-sm btn-danger"><i class="bi bi-trash-fill"></i>Delete</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    
+</div>

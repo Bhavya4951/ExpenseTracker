@@ -1,0 +1,55 @@
+﻿@model IEnumerable<TotalExpenseLimit>
+
+
+@{
+	ViewData["Title"] = "List Of TotalExpensesLimit";
+}
+
+@if (TempData["ResultOk"] != null)
+{
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>@TempData["ResultOk"]</strong>
+       
+    </div>
+
+}
+
+<div class="container shadow p-5">
+
+    <h1 class="text-center mb-3"> Total ExpenseLimit </h1>
+
+    
+    <table class="table table-bordered table-hover text-center">
+        <thead>
+            <tr>
+                <th scope="col">@Html.DisplayNameFor(Model => Model.Total_ExpenseLimit_Id)</th>
+                <th scope="col">@Html.DisplayNameFor(Model => Model.Total_ExpenseLimit)</th>
+                
+                <th> Action </th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td width="20%">
+                        @Html.DisplayFor(modelItem => item.Total_ExpenseLimit_Id)
+                    </td>
+                    <td width="20%">
+                        @Html.DisplayFor(modelItem => item.Total_ExpenseLimit)
+                    </td>
+
+
+                    <td width="20%">
+                        <div role="group" class="w-60 btn-group">
+                            <a asp-controller="TotalExpenseLimit" asp-action="Edit" asp-route-id="@item.Total_ExpenseLimit_Id" class=" btn btn-sm btn-primary"><i class="bi bi-pencil-square"></i>Edit</a>&nbsp;
+                           
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
